@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
- * @description 策略领域测试
+ * 策略领域测试
  */
 @Slf4j
 @RunWith(SpringRunner.class)
