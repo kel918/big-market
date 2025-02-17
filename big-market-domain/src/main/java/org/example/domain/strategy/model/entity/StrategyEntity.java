@@ -28,12 +28,15 @@ public class StrategyEntity {
         return ruleModels.split(Constants.SPLIT);
     }
 
+
     public String getRuleWeight() {
         String[] ruleModels = this.ruleModels();
+        if (null == ruleModels) return null;
         for (String ruleModel : ruleModels) {
             if ("rule_weight".equals(ruleModel)) return ruleModel;
         }
         return null;
     }
+
 
 }
