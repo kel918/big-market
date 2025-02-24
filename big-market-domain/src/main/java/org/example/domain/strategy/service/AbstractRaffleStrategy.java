@@ -1,11 +1,8 @@
 package org.example.domain.strategy.service;
 
 import org.example.domain.strategy.model.entity.*;
-import org.example.domain.strategy.model.valobj.RuleLogicCheckTypeVO;
-import org.example.domain.strategy.model.valobj.StrategyAwardRuleModelVO;
 import org.example.domain.strategy.repository.IStrategyRepository;
 import org.example.domain.strategy.service.armory.IStrategyDispatch;
-import org.example.domain.strategy.service.rule.chain.ILogicChain;
 import org.example.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
 import org.example.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
 import org.example.types.enums.ResponseCode;
@@ -17,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * 抽奖策略抽象类，定义抽奖的标准流程
  */
 @Slf4j
-public abstract class AbstractRaffleStrategy implements IRaffleStrategy {
+public abstract class AbstractRaffleStrategy implements IRaffleStrategy, IRaffleStock {
 
     // 策略仓储服务 -> domain层像一个大厨，仓储层提供米面粮油
     protected IStrategyRepository repository;
