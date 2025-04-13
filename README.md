@@ -1,2 +1,1 @@
-# xfg-frame-archetype - DDD 脚手架
-
+Raffle 抽象策略
