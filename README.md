@@ -1,1 +1,1 @@
-Raffle 抽象策略
+Raffle 抽奖策略
