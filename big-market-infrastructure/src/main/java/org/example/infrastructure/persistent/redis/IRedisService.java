@@ -2,6 +2,8 @@ package org.example.infrastructure.persistent.redis;
 
 import org.redisson.api.*;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Redis 服务
  */
@@ -58,6 +60,21 @@ public interface IRedisService {
      * @return 队列
      */
     <T> RDelayedQueue<T> getDelayedQueue(RBlockingQueue<T> rBlockingQueue);
+
+    /**
+     * 设置值
+     *
+     * @param key   key 键
+     * @param value 值
+     */
+    void setAtomicLong(String key, long value);
+
+    /**
+     * 获取值
+     *
+     * @param key key 键
+     */
+    Long getAtomicLong(String key);
 
     /**
      * 自增 Key 的值；1、2、3、4
@@ -244,7 +261,8 @@ public interface IRedisService {
      */
     <T> RBloomFilter<T> getBloomFilter(String key);
 
-    void setAtomicLong(String key, Integer value);
-
     Boolean setNx(String key);
+
+    Boolean setNx(String key, long expired, TimeUnit timeUnit);
+
 }
