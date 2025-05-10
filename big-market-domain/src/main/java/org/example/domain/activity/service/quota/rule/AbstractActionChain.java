@@ -1,4 +1,4 @@
-package org.example.domain.activity.service.rule;
+package org.example.domain.activity.service.quota.rule;
 
 /**
  * 下单规则责任链抽象类

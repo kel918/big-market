@@ -1,6 +1,7 @@
 package org.example.infrastructure.persistent.dao;
 
 import org.example.infrastructure.persistent.po.RaffleActivity;
+import org.example.infrastructure.persistent.po.RaffleActivityAccount;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
