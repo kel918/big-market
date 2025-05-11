@@ -1,4 +1,4 @@
-package org.example.test.infarstructure;
+package org.example.test.infrastructure;
 
 import org.example.infrastructure.persistent.dao.IRaffleActivityDao;
 import org.example.infrastructure.persistent.po.RaffleActivity;

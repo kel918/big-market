@@ -52,8 +52,8 @@ public class RaffleActivityAccountQuotaService extends AbstractRaffleActivityAcc
     }
 
     @Override
-    protected void doSaveOrder(CreateQuotaOrderAggregate createQuotaOrderAggregate) {
-        activityRepository.doSaveOrder(createQuotaOrderAggregate);
+    protected void doSaveOrder(CreateQuotaOrderAggregate createOrderAggregate) {
+        activityRepository.doSaveOrder(createOrderAggregate);
     }
 
     @Override
@@ -74,6 +74,11 @@ public class RaffleActivityAccountQuotaService extends AbstractRaffleActivityAcc
     @Override
     public void clearActivitySkuStock(Long sku) {
         activityRepository.clearActivitySkuStock(sku);
+    }
+
+    @Override
+    public Integer queryRaffleActivityAccountDayPartakeCount(Long activityId, String userId) {
+        return activityRepository.queryRaffleActivityAccountDayPartakeCount(activityId, userId);
     }
 
 }

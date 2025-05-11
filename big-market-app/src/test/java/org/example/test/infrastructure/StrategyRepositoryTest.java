@@ -1,4 +1,4 @@
-package org.example.test.infarstructure;
+package org.example.test.infrastructure;
 
 import org.example.domain.strategy.model.valobj.RuleTreeVO;
 import org.example.domain.strategy.repository.IStrategyRepository;

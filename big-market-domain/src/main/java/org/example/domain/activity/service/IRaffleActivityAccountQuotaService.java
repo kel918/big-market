@@ -3,7 +3,7 @@ package org.example.domain.activity.service;
 import org.example.domain.activity.model.entity.SkuRechargeEntity;
 
 /**
- * 抽奖活动订单接口
+ * 抽奖活动账户额度服务
  */
 public interface IRaffleActivityAccountQuotaService {
 
@@ -18,5 +18,13 @@ public interface IRaffleActivityAccountQuotaService {
      */
     String createOrder(SkuRechargeEntity skuRechargeEntity);
 
-}
+    /**
+     * 查询活动账户 - 日，参与次数
+     *
+     * @param activityId 活动ID
+     * @param userId     用户ID
+     * @return 参与次数
+     */
+    Integer queryRaffleActivityAccountDayPartakeCount(Long activityId, String userId);
 
+}
