@@ -7,8 +7,10 @@ import org.example.domain.award.repository.IAwardRepository;
 import org.example.infrastructure.event.EventPublisher;
 import org.example.infrastructure.persistent.dao.ITaskDao;
 import org.example.infrastructure.persistent.dao.IUserAwardRecordDao;
+import org.example.infrastructure.persistent.dao.IUserRaffleOrderDao;
 import org.example.infrastructure.persistent.po.Task;
 import org.example.infrastructure.persistent.po.UserAwardRecord;
+import org.example.infrastructure.persistent.po.UserRaffleOrder;
 import cn.bugstack.middleware.db.router.strategy.IDBRouterStrategy;
 import org.example.types.enums.ResponseCode;
 import org.example.types.exception.AppException;
@@ -21,9 +23,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import javax.annotation.Resource;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 奖品仓储服务
- * @create 2024-04-06 10:09
+ * 奖品仓储服务
  */
 @Slf4j
 @Component
@@ -33,6 +33,8 @@ public class AwardRepository implements IAwardRepository {
     private ITaskDao taskDao;
     @Resource
     private IUserAwardRecordDao userAwardRecordDao;
+    @Resource
+    private IUserRaffleOrderDao userRaffleOrderDao;
     @Resource
     private IDBRouterStrategy dbRouter;
     @Resource
@@ -66,6 +68,10 @@ public class AwardRepository implements IAwardRepository {
         task.setMessage(JSON.toJSONString(taskEntity.getMessage()));
         task.setState(taskEntity.getState().getCode());
 
+        UserRaffleOrder userRaffleOrderReq = new UserRaffleOrder();
+        userRaffleOrderReq.setUserId(userAwardRecordEntity.getUserId());
+        userRaffleOrderReq.setOrderId(userAwardRecordEntity.getOrderId());
+
         try {
             dbRouter.doRouter(userId);
             transactionTemplate.execute(status -> {
@@ -74,6 +80,13 @@ public class AwardRepository implements IAwardRepository {
                     userAwardRecordDao.insert(userAwardRecord);
                     // 写入任务
                     taskDao.insert(task);
+                    // 更新抽奖单
+                    int count = userRaffleOrderDao.updateUserRaffleOrderStateUsed(userRaffleOrderReq);
+                    if (1 != count) {
+                        status.setRollbackOnly();
+                        log.error("写入中奖记录，用户抽奖单已使用过，不可重复抽奖 userId: {} activityId: {} awardId: {}", userId, activityId, awardId);
+                        throw new AppException(ResponseCode.ACTIVITY_ORDER_ERROR.getCode(), ResponseCode.ACTIVITY_ORDER_ERROR.getInfo());
+                    }
                     return 1;
                 } catch (DuplicateKeyException e) {
                     status.setRollbackOnly();
