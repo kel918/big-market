@@ -5,18 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 抽奖活动账户表-月次数
- * @create 2024-04-03 15:28
+ * 抽奖活动账户表-月次数
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RaffleActivityAccountMonth {
+
+    private final SimpleDateFormat dateFormatMonth = new SimpleDateFormat("yyyy-MM");
 
     /** 自增ID */
     private String id;
@@ -34,5 +35,9 @@ public class RaffleActivityAccountMonth {
     private Date createTime;
     /** 更新时间 */
     private Date updateTime;
+
+    public String currentMonth() {
+        return dateFormatMonth.format(new Date());
+    }
 
 }
